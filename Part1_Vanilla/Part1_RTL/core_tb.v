@@ -3,7 +3,7 @@
 `timescale 1ns/10ps
 
 `define WEIGHT_ADDR_START 11'b10000000000
-`define WEIGHT_ADDR_OFFSET 11'b00010000000
+`define WEIGHT_ADDR_OFFSET 11'b00000100000
 
 
 module core_tb;

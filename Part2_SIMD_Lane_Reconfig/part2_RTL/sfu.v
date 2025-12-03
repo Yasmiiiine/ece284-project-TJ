@@ -29,7 +29,8 @@ module sfu (out, in, acc, relu, clk, reset, mode);
             psum_q <= 0;
         end
         else begin
-            if (mode == 0) begin
+            //if (mode == 0) begin
+            if(1'b1) begin
                 // --- 4-bit Mode (Original Logic) ---
                 if(acc)
                     psum_q <= psum_q + in;
@@ -38,24 +39,24 @@ module sfu (out, in, acc, relu, clk, reset, mode);
                 else
                     psum_q <= psum_q;
             end
-            else begin
-                // --- 2-bit SIMD Mode (Split Logic) ---
-                // We assume psum_q stores {hi, lo}
+            // else begin
+            //     // --- 2-bit SIMD Mode (Split Logic) ---
+            //     // We assume psum_q stores {hi, lo}
                 
-                // 1. Accumulation
-                if(acc) begin
-                    // Note: psum_q logic needs to treat halves separately
-                    // But Verilog + on 16 bits carries over from bit 7 to 8.
-                    // We must prevent carry propagation!
-                    psum_q[7:0]  <= psum_q[7:0] + in[7:0];
-                    psum_q[15:8] <= psum_q[15:8] + in[15:8];
-                end
-                // 2. ReLU
-                else if(relu) begin
-                    psum_q[7:0]  <= (psum_q[7:0] > 0)  ? psum_q[7:0]  : 0;
-                    psum_q[15:8] <= (psum_q[15:8] > 0) ? psum_q[15:8] : 0;
-                end
-            end
+            //     // 1. Accumulation
+            //     if(acc) begin
+            //         // Note: psum_q logic needs to treat halves separately
+            //         // But Verilog + on 16 bits carries over from bit 7 to 8.
+            //         // We must prevent carry propagation!
+            //         psum_q[7:0]  <= psum_q[7:0] + in[7:0];
+            //         psum_q[15:8] <= psum_q[15:8] + in[15:8];
+            //     end
+            //     // 2. ReLU
+            //     else if(relu) begin
+            //         psum_q[7:0]  <= (psum_q[7:0] > 0)  ? psum_q[7:0]  : 0;
+            //         psum_q[15:8] <= (psum_q[15:8] > 0) ? psum_q[15:8] : 0;
+            //     end
+            // end
         end
     end
 

@@ -1,6 +1,6 @@
 // Created by prof. Mingu Kang @VVIP Lab in UCSD ECE department
 // Please do not spread this code without permission 
-module mac_array (clk, reset, out_s, in_w, in_n, inst_w, valid);
+module mac_array (clk, reset, out_s, in_w, in_n, inst_w, valid, mode);
 
   parameter bw = 4;
   parameter psum_bw = 16;
@@ -20,12 +20,14 @@ module mac_array (clk, reset, out_s, in_w, in_n, inst_w, valid);
   wire [(row + 1) * col * psum_bw - 1:0] in_n_temp;
   reg [2 * row - 1:0] inst_temp;
 
-  assign valid_temp[row * col - 1:(row - 1) * col] = valid;
+  assign valid = valid_temp[row * col - 1:(row - 1) * col];
   assign in_n_temp[col * psum_bw - 1:0]  = in_n;
+
+  assign out_s = in_n_temp[(row + 1) * col * psum_bw - 1:row * col * psum_bw];
 
   genvar i;
   for (i=1; i < row+1 ; i=i+1) begin : row_num
-      mac_row #(.bw(bw), .psum_bw(psum_bw)) mac_row_instance (
+      mac_row #(.bw(bw), .psum_bw(psum_bw), .col(col)) mac_row_instance (
       .clk(clk),
       .reset(reset),
       .mode(mode),

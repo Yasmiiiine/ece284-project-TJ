@@ -2,12 +2,13 @@
 // Corelet module 
 // Includes all the other blocks l0 PE ofifo sfu
 
-module corelet (clk, reset, inst, data_to_l0, l0_rd, l0_wr, l0_full, l0_ready, ofifo_rd, ofifo_full, ofifo_ready, ofifo_valid, ofifo_out, data_to_sfu, acc, relu, data_out);
+module corelet #(
+    parameter bw = 4,
+    parameter psum_bw = 16,
+    parameter row = 8,
+    parameter col = 8
+)(clk, reset, inst, data_to_l0, l0_rd, l0_wr, l0_full, l0_ready, ofifo_rd, ofifo_full, ofifo_ready, ofifo_valid, ofifo_out, data_to_sfu, acc, relu, data_out, mode);
 
-    parameter bw = 4;
-    parameter psum_bw = 16;
-    parameter row = 8;
-    parameter col = 8;
 
     input clk, reset;
     input mode;
@@ -67,7 +68,7 @@ module corelet (clk, reset, inst, data_to_l0, l0_rd, l0_wr, l0_full, l0_ready, o
 
     /////////////// ofifo instantiation begin ////////////////    
 
-    ofifo #(.col(col), .psum_bw(psum_bw)) ofifo_instance (
+    ofifo #(.col(col), .bw(psum_bw)) ofifo_instance (
         .clk(clk),
         .wr(mac_valid),
         .rd(ofifo_rd),
