@@ -1,0 +1,4 @@
+alpha_weight_combine = 0.8
+scale_activation     = 1.09396115e-01
+scale_weight         = 1.34144127e-02
+scale_bias           = 1.46748463e-03

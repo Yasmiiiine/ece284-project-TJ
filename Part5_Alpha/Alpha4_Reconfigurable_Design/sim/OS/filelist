@@ -1,0 +1,16 @@
+../../verilog/OS/core.v
+../../verilog/OS/corelet.v
+../verilog/OS/core_tb_output_stationary.v
+../../verilog/OS/fifo_depth16.v
+../../verilog/OS/fifo_mux_16_1.v
+../../verilog/OS/fifo_mux_2_1.v
+../../verilog/OS/fifo_mux_8_1.v
+../../verilog/OS/l0_fifo.v
+../../verilog/OS/mac.v
+../../verilog/OS/mac_array.v
+../../verilog/OS/mac_row.v
+../../verilog/OS/mac_tile.v
+../../verilog/OS/ofifo.v
+../../verilog/OS/ififo.v
+../../verilog/OS/sfp.v
+../../verilog/OS/sram.v
